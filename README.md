@@ -2,7 +2,7 @@
 
 Here is a set of useful tools on Windows I often use. 
 
-You can also link to [LaTeXChecker](https://github.com/BatchClayderman/LaTeXChecker) for other tools. 
+You can also link to [directoryComparator](https://github.com/BatchClayderman/directoryComparator) and [LaTeXChecker](https://github.com/BatchClayderman/LaTeXChecker) for other useful tools. 
 
 ## adjustCalendar.py
 
