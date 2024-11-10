@@ -557,6 +557,19 @@ class PyTools:
 				print(e)
 		exit(__exitCode)
 	@staticmethod
+	def convertEscaped(string:str) -> str:
+		if isinstance(string, str):
+			vec = list(string)
+			d = {"\\":"\\\\", "\"":"\\\"", "\'":"\\\'", "\a":"\\a", "\b":"\\b", "\f":"\\f", "\n":"\\n", "\r":"\\r", "\t":"\\t", "\v":"\\v"}
+			for i, ch in enumerate(vec):
+				if ch in d:
+					vec[i] = d[ch]
+				elif not ch.isprintable():
+					vec[i] = "\\x" + hex(ord(ch))[2:]
+			return "\'" + "".join(vec) + "\'"
+		else:
+			return str(string)
+	@staticmethod
 	def getTxt(filePath:str, index:int = 0) -> str: # get .txt content
 		coding = ("utf-8", "gbk", "utf-16") # codings
 		if 0 <= index < len(coding): # in the range
