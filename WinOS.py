@@ -132,11 +132,12 @@ class WinOS:
 				os.system("pause>nul&cls")
 				exit(EOF)
 	@staticmethod
-	def cdCurrentPath():
+	def cdCurrentPath() -> bool:
 		try:
 			os.chdir(os.path.abspath(os.path.dirname(__file__))) # 解析进入程序所在目录
+			return True
 		except:
-			pass
+			return False
 	@staticmethod
 	def osWalk(target_path, extent = None, caseSen = (PLATFORM != "WINDOWS")): # 遍历文件夹
 		allPath = []
@@ -570,19 +571,17 @@ class PyTools:
 		else:
 			return str(string)
 	@staticmethod
-	def getTxt(filePath:str, index:int = 0) -> str: # get .txt content
-		coding = ("utf-8", "gbk", "utf-16") # codings
-		if 0 <= index < len(coding): # in the range
+	def getTxt(filePath:str) -> str|None: # get ``*.txt`` content
+		for coding in ("utf-8", "ANSI", "utf-16", "gbk"): # codings (add more codings here if necessary)
 			try:
-				with open(filePath, "r", encoding = coding[index]) as f:
+				with open(filePath, "r", encoding = coding) as f:
 					content = f.read()
 				return content[1:] if content.startswith("\ufeff") else content # if utf-8 with BOM, remove BOM
 			except (UnicodeError, UnicodeDecodeError):
-				return getTxt(filePath, index + 1) # recursion
+				continue
 			except:
 				return None
-		else:
-			return None # out of range
+		return None
 	@staticmethod
 	def handleFolder(fd:str) -> bool:
 		folder = str(fd)
