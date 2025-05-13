@@ -584,7 +584,10 @@ class PyTools:
 		return None
 	@staticmethod
 	def handleFolder(fd:str) -> bool:
-		folder = str(fd)
+		try:
+			folder = str(fd)
+		except:
+			return False
 		if not folder:
 			return True
 		elif os.path.exists(folder):
